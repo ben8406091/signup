@@ -30,3 +30,7 @@ Route::get('/', function () {
 Route::get('/action/create', function () {
     return view('create');
 })->name('action.create');
+//儲存
+Route::post('/action', function () {
+    return view('welcome')->with('content', '儲存完成');
+})->name('action.store');
