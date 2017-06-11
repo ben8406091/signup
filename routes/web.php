@@ -13,6 +13,8 @@
 Route::pattern('id', '[0-9]+');
 
 Route::get('/', 'ActionController@index');
+//群組方式
+//Route::resource('action', 'ActionController');
 
 Auth::routes();
 
@@ -39,6 +41,8 @@ Route::patch('/action/{id}', 'ActionController@update')
 Route::delete('/action/{id}', 'ActionController@destroy')
     ->name('action.destroy');
 
+//未標準的分類群組方式
+//Route::group(['prefix' => 'signup'], function () {
 //報名
 Route::get('/signup/create/{id}', 'SignupController@create')
     ->name('signup.create');
@@ -48,3 +52,4 @@ Route::post('/signup/store', 'SignupController@store')
 //取出報名名單
 Route::get('/action/{id}', 'ActionController@show')
     ->name('action.show');
+//});
