@@ -11,9 +11,7 @@
 |
  */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'ActionController@index');
 
 Auth::routes();
 
@@ -26,3 +24,5 @@ Route::get('/action/create', 'ActionController@create')
     ->name('action.create');
 Route::post('/action', 'ActionController@store')
     ->name('action.store');
+//顯示
+Route::get('/action/{id}', 'ActionController@show')->name('action.show');

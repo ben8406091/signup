@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Action;
+use App\Http\Requests\ActionRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,7 +16,11 @@ class ActionController extends Controller
      */
     public function index()
     {
-        return view('welcome');
+        $actions = Action::where('enable', 1)
+            ->orderBy('created_at', 'desc')
+            ->paginate(2);
+
+        return view('welcome', compact('actions'));
 
     }
 
@@ -41,7 +46,7 @@ class ActionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ActionRequest $request)
     {
         Action::create($request->all());
         return redirect()->route('action.index');
@@ -84,7 +89,7 @@ class ActionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ActionRequest $request, $id)
     {
         //
     }

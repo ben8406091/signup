@@ -1,5 +1,24 @@
 @extends('layouts.app')
 
 @section('content')
-<h1>歡迎回到首頁</h1>
+<h1>活動列表</h1>
+  <ul class="list-group">
+    @forelse ($actions as $action)
+      <li class="list-group-item">
+        {{$action->user['name']}} 發布於
+        {{$action->created_at->format("Y年m月d日")}} -
+        <a href="{{route('action.show' , $action->id)}}">
+        {{$action->title}}
+        </a>
+        （{{$action->counter}}）
+      </li>
+    @empty
+      <div class="alert alert-danger">尚無可報名活動</div>
+    @endforelse
+    <div class="text-center">
+      {!! $actions->render() !!}
+    </div>
+
+  </ul>
+
 @endsection
