@@ -49,7 +49,7 @@ class ActionController extends Controller
     public function store(ActionRequest $request)
     {
         Action::create($request->all());
-        return redirect()->route('action.index');
+        return redirect()->route('action.show', $action->id);
         //$action          = new Action;
         //$action->title   = $request->title;
         //$action->content = $request->content;
@@ -68,7 +68,13 @@ class ActionController extends Controller
      */
     public function show($id)
     {
-        //
+        $this->updateCounter($id);
+
+        $action          = Action::find($id);
+        $action->content = nl2br($action->content);
+
+        return view('show', compact('action'));
+
     }
 
     /**
@@ -79,7 +85,8 @@ class ActionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $action = Action::find($id);
+        return view('edit', compact('action'));
     }
 
     /**
@@ -91,7 +98,9 @@ class ActionController extends Controller
      */
     public function update(ActionRequest $request, $id)
     {
-        //
+        $action = Action::find($id);
+        $action->update($request->all());
+        return redirect()->route('action.show', $id);
     }
 
     /**
@@ -104,4 +113,14 @@ class ActionController extends Controller
     {
         //
     }
+
+    //刷新計數器
+    public function updateCounter($id)
+    {
+        $action = Action::find($id);
+        $action->counter += 1;
+        $action->timestamps = false;
+        $action->update(['counter' => $action->counter]);
+    }
+
 }

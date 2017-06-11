@@ -11,4 +11,11 @@ class Action extends Model
     protected $primaryKey = 'id';
     protected $fillable   = [
         'title', 'content', 'user_id', 'enable',
-    ];}
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+}
