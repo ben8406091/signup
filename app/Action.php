@@ -18,4 +18,9 @@ class Action extends Model
         return $this->belongsTo('App\User');
     }
 
+    public function signups()
+    {
+        return $this->hasMany('App\Signup');
+    }
+
 }

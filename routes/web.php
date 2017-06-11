@@ -35,3 +35,16 @@ Route::get('/action/{id}/edit', 'ActionController@edit')
 //更新
 Route::patch('/action/{id}', 'ActionController@update')
     ->name('action.update');
+//刪除
+Route::delete('/action/{id}', 'ActionController@destroy')
+    ->name('action.destroy');
+
+//報名
+Route::get('/signup/create/{id}', 'SignupController@create')
+    ->name('signup.create');
+//儲存報名
+Route::post('/signup/store', 'SignupController@store')
+    ->name('signup.store');
+//取出報名名單
+Route::get('/action/{id}', 'ActionController@show')
+    ->name('action.show');

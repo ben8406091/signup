@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Action;
 use App\Http\Requests\ActionRequest;
+use Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -86,7 +87,13 @@ class ActionController extends Controller
     public function edit($id)
     {
         $action = Action::find($id);
-        return view('edit', compact('action'));
+        if (Gate::allows('update-action', $action)) {
+            return view('edit', compact('action'));
+        } else {
+            return redirect()->route('action.index');
+        }
+
+        //return view('edit', compact('action'));
     }
 
     /**
@@ -111,7 +118,9 @@ class ActionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Action::destroy($id);
+        return redirect()->route('action.index');
+
     }
 
     //刷新計數器
