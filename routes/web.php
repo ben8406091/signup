@@ -18,19 +18,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/', function () {
-    $name = 'tad';
-    $say  = '嗨！';
-    $date = date("Y年m月d日");
 
-    return view('welcome', compact('name', 'say', 'date'));
+Route::get('/action', 'ActionController@index')
+    ->name('action.index');
 
-});
-
-Route::get('/action/create', function () {
-    return view('create');
-})->name('action.create');
-//儲存
-Route::post('/action', function () {
-    return view('welcome')->with('content', '儲存完成');
-})->name('action.store');
+Route::get('/action/create', 'ActionController@create')
+    ->name('action.create');
+Route::post('/action', 'ActionController@store')
+    ->name('action.store');
